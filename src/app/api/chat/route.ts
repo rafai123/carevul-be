@@ -1,5 +1,5 @@
+import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
-import { prisma } from "@/utils/prisma";
 
 // Get chats in room based on room id
 export async function GET(request: Request) {
