@@ -1,6 +1,12 @@
 import { prisma } from "@/utils/prisma";
-import { Room } from "@prisma/client";
+// import { Room } from "@prisma/client"
 import { NextResponse } from "next/server";
+
+type Room = {
+    id: string;
+    userId: string;
+    doctorId: string;
+  };
 
 export async function GET(request: Request) {
     const url = new URL(request.url);
@@ -14,11 +20,11 @@ export async function GET(request: Request) {
     let userRooms: Room[] = [];
   
     if (userType === "DOCTOR") {
-      userRooms = await prisma.room.findMany({
-        where: {
-          doctorId: userId,
-        },
-      });
+        userRooms = await prisma.room.findMany({
+          where: {
+            doctorId: userId,
+          },
+        });
     } else {
       userRooms = await prisma.room.findMany({
         where: {
