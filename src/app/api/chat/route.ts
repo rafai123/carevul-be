@@ -1,8 +1,8 @@
-import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
+import { prisma } from "@/utils/prisma";
 
 // Get chats in room based on room id
-export async function GET(request) {
+export async function GET(request: Request) {
   const url = new URL(request.url);
   const roomId = url.searchParams.get("roomId");
 
@@ -47,7 +47,7 @@ export async function GET(request) {
 }
 
 // Create a chat for the room id in route room/[id]/chat
-export async function POST(request) {
+export async function POST(request: Request) {
   const url = new URL(request.url);
   const roomId = url.searchParams.get("roomId");
 
