@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["mongodb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String
+  doctorId String
+  chats    Chat[]
+}
+
+model Chat {
+  id      String       @id @default(auto()) @map("_id") @db.ObjectId
+  message String
+  sentAt  DateTime  @default(now())
+  seenAt  DateTime?
+  roomId  String? @db.ObjectId
+  userId  String
+  Room    Room?     @relation(fields: [roomId], references: [id])
+}
